@@ -1,6 +1,7 @@
-    ## Python Code for Elevatino Profile Calculation Equation
+    ## Python Code for Elevation Profile Calculation Equation
  
 
+#renders the elevation profile code and perfroms outflow calculations
 def render_qf(g,d,e,mu,rho):
     import numpy as np
     import outflow_code as oc
@@ -144,13 +145,15 @@ def render_qf(g,d,e,mu,rho):
 
 
 
-
+#solve velocity without friction factor
 def solve_v(g, d, H, Z):
     import numpy as np
     fric = 0.16 #good guess for firction factor
     v1 = np.sqrt(2*g*H)
     v1f = np.sqrt((2*g*H)/(1+(fric*Z/d)))
     return [v1, v1f]
+
+#solve velocity with known friction factor
 def solve_vwf(g, d, H, Z, f):
     import numpy as np
     v1 = np.sqrt(2*g*H)
@@ -170,6 +173,7 @@ def moody_f(Re, e, d):
         f= 64/Re
     return f
 
+#solve for velocity with a friction factor using moody chart (even if you dont know the friction factor
 def get_vel(g, d, H, Z, e, mu, rho):
     import outflow_code as oc
     i = 1
@@ -183,16 +187,17 @@ def get_vel(g, d, H, Z, e, mu, rho):
         Re = oc.reynolds(vel[1], rho, d, mu)
         f1 = oc.moody_f(Re, e, d)
         i = i+1
-
     #print(i)
     return vel
 
+#approximation of moody chart using Bellos, Nalbantis, Tsakiris approximation 
 def bnt_f(Re, e, d):
     import numpy as np
     a = 1/(1+((Re/2712)**8.4))
     b = 1/(1+((Re/(150*d/e))**1.8))
     f = ((64/Re)**a)*((0.75*np.log(Re/5.37))**(1*(a-1)*b))*((0.88*np.log(6.82*d/e))**(2*(a-1)*(1-b)))
     return f
+
 
 def new_Z_h1(i, col1elv, col3):
     import numpy as np
@@ -227,43 +232,11 @@ def new_Z_h1(i, col1elv, col3):
 
 
 
-#vel=oc.solve_v(g, d, H, Z)
-#Re=oc.reynolds(vel[1], rho, d, mu)
-#f=oc.moody_f(Re, e, d)
-#vel=oc.solve_vwf(g, d, H, Z, f)
-#vel
-#mu = 7.5
-#e = 0.000015 stainless steel
-#vel = outflow_code.solve_v(g,d,H,Z)
-#Re = outflow_code.reynolds(vel[1], rho, d, mu)
-#f = outflow_code.moody_f(Re, e, d)
+#H=10
+#Z=93
+#rho=1000
+#mu=7.5
+#e = 0.000015
+#g=9.81
+#d=0.5
 
-H=10
-Z=93
-rho=1000
-mu=7.5
-e = 0.000015
-g=9.81
-d=0.5
-
-#oc.render_qf(g,d,e,mu,rho)
-#import sys
-#import importlib
-#importlib.reload(outflow_code)
-
-
-
-    #Creating arrays that display local max and mins along route
-    #For debugging only (THIS IS THE MATLAB CODE NEED TO CHANGE FOR PYTHON)
-    #Code will be used when we add valves
-    #TF = islocalmax(col2)
-    #TG = islocalmin(col2)
-    #maxLoc = [col1.*TF, col2.*TF];
-    #minLoc = [col1.*TG, col2.*TG];
-
-    #Notes:
-    #max point is more than 45 000 barrels
-    #is this pipelein is 50 km
-    #at d = 0.5
-#volume of pipe is about 65 000 barrels
-#this is about accurate with zero valves
