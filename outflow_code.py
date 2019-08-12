@@ -1,16 +1,15 @@
     ## Python Code for Elevation Profile Calculation Equation
  
 
-#renders the elevation profile code and perfroms outflow calculations
+#renders the elevation profile code and performs outflow calculations
 def render_qf(g,d,e,mu,rho):
     import numpy as np
     import outflow_code as oc
     import os
     #define constants
-    g = 9.81
-    valve_close_t = 240
-    #d = 0.5 #Pipe Diameter on meters (will change this in final version
-    #rho = 1000 #Liquid density in kg/m^3
+    g = 9.81 #gravitational constant
+    valve_close_t = 240 #time it takes valves to close in seconds, based on ASME and CSA Z662 requirements
+
     #input turns the csv file into a 2D array
     #elvA is Array imported csv file, columns are x and y of elevation profile
     Elevation = np.genfromtxt(open('Elevation_Profile.csv', 'r'), delimiter=",",)
@@ -75,11 +74,10 @@ def render_qf(g,d,e,mu,rho):
                     print('location modified')
                 else:
                     print('location not changed')
-
-
         i = i+1
         print(i,t, h1, Z)
     #End LHS
+    
     #Begin RHS (Right Hand Side)
     qtotalright = np.zeros(range)
     finalH = np.zeros(range)
@@ -195,10 +193,10 @@ def bnt_f(Re, e, d):
     import numpy as np
     a = 1/(1+((Re/2712)**8.4))
     b = 1/(1+((Re/(150*d/e))**1.8))
-    f = ((64/Re)**a)*((0.75*np.log(Re/5.37))**(1*(a-1)*b))*((0.88*np.log(6.82*d/e))**(2*(a-1)*(1-b)))
+    f = ((64/Re)**a)*((0.75*np.log(Re/5.37))**(1*(a-1)*b))*((0.88*np.log(6.82*d/e))**(2*(a-1)*(1-b))) #BNT approximatino
     return f
 
-
+#if you hve valves along pipelien route, add them here
 def new_Z_h1(i, col1elv, col3):
     import numpy as np
     list = np.zeros(i+1)
