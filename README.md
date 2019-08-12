@@ -1,6 +1,6 @@
 # Pypeline
 Pipeline outflow analysis tool and fluid mechanics library
-This measure the number of barrels of fluid that could potentially
+This collections of python scripts measures the number of barrels of fluid that could potentially
 be spilled at different points along a pipeline.
 
 To calculate the potential spill at a location along the pipe,
