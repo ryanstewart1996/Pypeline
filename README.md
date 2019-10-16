@@ -19,4 +19,3 @@ Future opportunities to further develop this program include:
 for very long segments of pipe (200km-500km)
 • Apply the fluid mechanic functions created during development of this software to other fluid applications and problems
 
-This project is mostly dead. There are lots of areas to improve.
