@@ -16,6 +16,6 @@ Future opportunities to further develop this program include:
 • Creating a Microsoft Excel add-on to make it easier for non-programmers to interface with the analysis tool
 • Re-writing the software in a faster programming language (C, C++, etc.)
 • Create a Raspberry Pi cluster to better maximize the speed of rendering
-for very long segments of pipe (200km-500km)
+for very long segments of pipe (200km-500km) or use CUDA for faster rendering times
 • Apply the fluid mechanic functions created during development of this software to other fluid applications and problems
 
